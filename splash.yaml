@@ -1,0 +1,14 @@
+flutter_native_splash:
+
+  color: "#ffffff"
+  image: assets/images/SplashScreen.png
+
+  android_12:
+    image: assets/images/SplashScreen.png
+    color: "#ffffff"
+
+
+
+# dart run flutter_native_splash:create --path=splash.yaml
+# dart run flutter_native_splash:remove --path=splash.yaml -> for remove cashing 
+# ensure size 960 x 960 (Box)  - 640 x 640 (Round as cricle 320 x 320)
