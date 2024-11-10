@@ -21,6 +21,12 @@ class PlacesFailLoaded extends MapsState {
   PlacesFailLoaded({required this.message});
 }
 
+class PlaceDirectionLoaded extends MapsState {
+  final List<Routes>? placeDirections;
+
+  PlaceDirectionLoaded(this.placeDirections);
+}
+
 class GetSearchedPlace extends MapsState {
   final Location geometry;
 
@@ -28,7 +34,6 @@ class GetSearchedPlace extends MapsState {
 }
 
 class DirectionsLoaded extends MapsState {
-//  final PlaceDirections placeDirections;
-
-  //DirectionsLoaded(this.placeDirections);
+  Set<Polyline> polylines;
+  DirectionsLoaded(this.polylines);
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_project/Features/Maps/Data/Model/DestinationModel.dart';
+import 'package:flutter_complete_project/Features/Maps/Data/Model/destination_model.dart';
 
 class DistanceAndTime extends StatelessWidget {
   final Legs? placeDirections;

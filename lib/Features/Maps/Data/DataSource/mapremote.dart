@@ -3,7 +3,7 @@ import 'package:flutter_complete_project/Core/Error/Eitherdata.dart';
 import 'package:flutter_complete_project/Core/Error/exception.dart';
 import 'package:flutter_complete_project/Core/Error/networkException/networkErrorhandler.dart';
 import 'package:flutter_complete_project/Core/Strings/strings.dart';
-import 'package:flutter_complete_project/Features/Maps/Data/Model/DestinationModel.dart';
+import 'package:flutter_complete_project/Features/Maps/Data/Model/destination_model.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/PlaceDetails.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/autoCompleteModel.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -38,7 +38,10 @@ class MapRemoteDataSourceImplementation implements MapRemoteDataSource {
     try {
       final res = await dio.get(StringManager.directionsBaseUrl(
           origin: origin, destination: destination));
-      return FetchResult.success(DestinationResponse.fromJson(res.data));
+      if (res.statusCode == 200) {
+        return FetchResult.success(DestinationResponse.fromJson(res.data));
+      }
+      return FetchResult.error(DioErrorHandler.handle(res.statusCode));
     } catch (error) {
       return FetchResult.error(DioErrorHandler.handle(error));
     }

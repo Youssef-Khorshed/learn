@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_complete_project/Features/Maps/Presentation/Logic/cubit/maps/maps_cubit.dart';
 import 'package:flutter_complete_project/Features/Maps/Presentation/UI/widgets/searchScreen.dart';
-import 'package:flutter_complete_project/Features/Maps/getUserLocation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MyMaps extends StatefulWidget {
@@ -14,26 +13,13 @@ class MyMaps extends StatefulWidget {
 }
 
 class _MyMapsState extends State<MyMaps> {
-  // void buildCameraNewPosition() {
-  //   goToSearchedForPlace = CameraPosition(
-  //     bearing: 0.0,
-  //     tilt: 0.0,
-  //     target: LatLng(
-  //       selectedPlace.result.geometry.location.lat,
-  //       selectedPlace.result.geometry.location.lng,
-  //     ),
-  //     zoom: 13,
-  //   );
-  // }
-
-  // these variables for getDirections
-  // PlaceDirections? placeDirections;
   var progressIndicator = false;
   late List<LatLng> polylinePoints;
   var isSearchedPlaceMarkerClicked = false;
   var isTimeAndDistanceVisible = false;
   late String time;
   late String distance;
+  Set<Polyline> polyLines = {};
 
   @override
   initState() {
@@ -42,9 +28,10 @@ class _MyMapsState extends State<MyMaps> {
     getMyCurrentLocation();
   }
 
+  ///First step
   Future<void> getMyCurrentLocation() async {
     final maps = context.read<MapsCubit>();
-    maps.orginPosition = await getUserLocation();
+    maps.orginPosition = await maps.getUserLocation();
     // ignore: use_build_context_synchronously
     if (maps.orginPosition != null) {
       maps.originCameraPosition = CameraPosition(
@@ -60,8 +47,9 @@ class _MyMapsState extends State<MyMaps> {
     }
   }
 
+  /// Second Step
   Widget buildMap() {
-    final maps = context.read<MapsCubit>();
+    final maps = context.watch<MapsCubit>();
 
     return GoogleMap(
       mapType: MapType.normal,
@@ -69,6 +57,7 @@ class _MyMapsState extends State<MyMaps> {
       zoomControlsEnabled: false,
       myLocationButtonEnabled: false,
       markers: maps.markers,
+      polylines: polyLines,
       initialCameraPosition: maps.originCameraPosition,
       onMapCreated: (GoogleMapController controller) {
         maps.mapController.complete(controller);
@@ -85,7 +74,6 @@ class _MyMapsState extends State<MyMaps> {
 
   @override
   Widget build(BuildContext context) {
-    final maps = context.read<MapsCubit>();
     return Scaffold(
       body: BlocConsumer<MapsCubit, MapsState>(
         listener: (context, state) {
@@ -93,9 +81,18 @@ class _MyMapsState extends State<MyMaps> {
             final x = context.read<MapsCubit>();
             x.updateDestionationCameraPosition();
             x.buildmarkers();
+          } else if (state is DirectionsLoaded) {
+            setState(() {
+              polyLines = state.polylines;
+              for (var polyline in polyLines) {
+                print(polyline.points);
+              }
+            });
           }
         },
         builder: (context, state) {
+          final maps = context.read<MapsCubit>();
+
           return Stack(
             children: [
               maps.orginPosition != null

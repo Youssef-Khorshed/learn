@@ -3,7 +3,7 @@ import 'package:flutter_complete_project/Core/Error/Eitherdata.dart';
 import 'package:flutter_complete_project/Core/Error/exception.dart';
 import 'package:flutter_complete_project/Core/Error/networkException/networkErrorhandler.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/DataSource/mapremote.dart';
-import 'package:flutter_complete_project/Features/Maps/Data/Model/DestinationModel.dart';
+import 'package:flutter_complete_project/Features/Maps/Data/Model/destination_model.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/PlaceDetails.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/autoCompleteModel.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -42,7 +42,7 @@ class MapsRepoimplementation {
         placeId: placeId, sessionToken: sessionToken);
     try {
       return res.fold((onError) => FetchResult.error(onError), (onSuccess) {
-        debugPrint(onSuccess.toString());
+        debugPrint('onSuccess.toString(): ${onSuccess.toString()}');
 
         return FetchResult.success(onSuccess);
       });

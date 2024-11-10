@@ -1,10 +1,14 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_complete_project/Core/Strings/strings.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/PlaceDetails.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/autoCompleteModel.dart';
+import 'package:flutter_complete_project/Features/Maps/Data/Model/destination_model.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/RepoImplementation/mapRepoImplementation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 part 'maps_state.dart';
 
 class MapsCubit extends Cubit<MapsState> {
@@ -18,6 +22,7 @@ class MapsCubit extends Cubit<MapsState> {
   late CameraPosition originCameraPosition;
   late CameraPosition destinationCameraPosition;
   Position? orginPosition;
+
   late Location destinationostion;
   late String destinationInfo;
 
@@ -27,6 +32,24 @@ class MapsCubit extends Cubit<MapsState> {
   List<Predictions> predictions = [];
 
   MapsCubit(this.mapsRepository) : super(MapsInitial());
+
+  Future<Position?> getUserLocation() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      // Request permission
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever; handle accordingly
+      await getUserLocation();
+    } else if (permission == LocationPermission.whileInUse ||
+        permission == LocationPermission.always) {
+      return await Geolocator.getCurrentPosition();
+    }
+    return null;
+  }
 
   Future<void> emitPlaceSuggestions(
       {required String searchQuery, required String sessionToken}) async {
@@ -52,14 +75,36 @@ class MapsCubit extends Cubit<MapsState> {
         placeId: placeId, sessionToken: sessionToken);
     response.fold((onError) {}, (onSuccess) {
       destinationostion = onSuccess.result!.geometry!.location!;
-      print('destina tion $destinationostion');
       emit(GetSearchedPlace(onSuccess.result!.geometry!.location!));
     });
   }
 
   Future<void> emitPlaceDirections(LatLng origin, LatLng destination) async {
     final res = await mapsRepository.getDirections(origin, destination);
-    res.fold((onError) {}, (onSuccess) {});
+    Set<Polyline> polyLines = {};
+    res.fold((onError) {}, (onSuccess) async {
+      PolylinePoints polylinePoints = PolylinePoints();
+      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+        googleApiKey: StringManager.apiKey,
+        request: PolylineRequest(
+          origin:
+              PointLatLng(orginPosition!.latitude, orginPosition!.longitude),
+          destination:
+              PointLatLng(destinationostion.lat!, destinationostion.lng!),
+          mode: TravelMode.driving,
+        ),
+      );
+      polyLines.add(Polyline(
+        polylineId: const PolylineId('route'),
+        points:
+            result.points.map((e) => LatLng(e.latitude, e.longitude)).toList(),
+      ));
+      debugPrint(LatLng(orginPosition!.latitude, orginPosition!.longitude)
+              .toString() +
+          ' Stirng ' +
+          LatLng(destinationostion.lat!, destinationostion.lng!).toString());
+      emit(DirectionsLoaded(polyLines));
+    });
   }
 
   void updateDestionationCameraPosition() async {
@@ -87,6 +132,12 @@ class MapsCubit extends Cubit<MapsState> {
         markerId: const MarkerId('destination'),
         position: LatLng(destinationostion.lat!, destinationostion.lng!),
         infoWindow: InfoWindow(title: destinationInfo),
+        onTap: () async {
+          await emitPlaceDirections(
+            LatLng(orginPosition!.latitude, orginPosition!.longitude),
+            LatLng(destinationostion.lat!, destinationostion.lng!),
+          );
+        },
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue)));
     emit(UpdateMarkers());
   }
