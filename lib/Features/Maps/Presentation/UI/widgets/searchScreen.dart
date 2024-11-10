@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_complete_project/Features/Maps/Presentation/Logic/cubit/maps/maps_cubit.dart';
 import 'package:flutter_complete_project/Features/Maps/Presentation/UI/widgets/place_item.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:uuid/uuid.dart';
 
@@ -53,9 +52,8 @@ class _SearchScreenState extends State<SearchScreen> {
         return InkWell(
             onTap: () async {
               final sessionToken = const Uuid().v4();
-              setState(() {
-                c.destinationInfo = c.predictions[index].description!;
-              });
+              c.destinationInfo = c.predictions[index].description!;
+              c.markers.clear();
               await c.emitPlaceLocation(
                   c.predictions[index].placeId!, sessionToken);
               controller.close();
