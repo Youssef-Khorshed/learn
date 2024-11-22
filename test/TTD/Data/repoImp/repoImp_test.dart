@@ -30,7 +30,7 @@ void main() {
       );
 
       ///assert
-      final result = weatherRepoImp.getWeather('Alexandria');
+      final result = await weatherRepoImp.getWeather('Alexandria');
       expect(
           result,
           equals(
