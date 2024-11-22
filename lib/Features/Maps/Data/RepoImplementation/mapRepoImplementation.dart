@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_complete_project/Core/Error/Eitherdata.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_complete_project/Core/Error/exception.dart';
-import 'package:flutter_complete_project/Core/Error/networkException/networkErrorhandler.dart';
+import 'package:flutter_complete_project/Core/Error/failure.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/DataSource/mapremote.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/destination_model.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/PlaceDetails.dart';
@@ -12,42 +11,43 @@ class MapsRepoimplementation {
   MapRemoteDataSource mapRemoteDataSource;
   MapsRepoimplementation({required this.mapRemoteDataSource});
 
-  Future<FetchResult<AutoCompleteResponse, AppException>> fetchSuggestions(
+  Future<Either<Failure, AutoCompleteResponse>> fetchSuggestions(
       {required String searchQuery, required String sessionToken}) async {
     try {
       final res = await mapRemoteDataSource.fetchSuggestions(
           searchQuery: searchQuery, sessionToken: sessionToken);
-      return res.fold((l) => FetchResult.error(l),
-          (r) => FetchResult.success(r as AutoCompleteResponse));
+
+      return Right(res);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(message: error.toString()));
     } catch (error) {
-      return FetchResult.error(DioErrorHandler.handle(error));
+      return Left(UnExpectedFailure(message: error.toString()));
     }
   }
 
-  Future<FetchResult<DestinationResponse, AppException>> getDirections(
+  Future<Either<Failure, DestinationResponse>> getDirections(
       LatLng origin, LatLng destination) async {
     try {
       final res = await mapRemoteDataSource.getDirections(origin, destination);
-      return res.fold(
-          (onError) => FetchResult.error(DioErrorHandler.handle(onError)),
-          (onSuccess) => FetchResult.success(onSuccess as DestinationResponse));
+      return Right(res);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(message: error.toString()));
     } catch (error) {
-      return FetchResult.error(DioErrorHandler.handle(error));
+      return Left(UnExpectedFailure(message: error.toString()));
     }
   }
 
-  Future<FetchResult<PlacedetailsResponse, AppException>> getPlaceLocation(
+  Future<Either<Failure, PlacedetailsResponse>> getPlaceLocation(
       {required String placeId, required String sessionToken}) async {
     final res = await mapRemoteDataSource.getPlaceLocation(
         placeId: placeId, sessionToken: sessionToken);
     try {
-      return res.fold((onError) => FetchResult.error(onError), (onSuccess) {
-        debugPrint('onSuccess.toString(): ${onSuccess.toString()}');
+      return Right(res);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(message: error.toString()));
 
-        return FetchResult.success(onSuccess);
-      });
     } catch (error) {
-      return FetchResult.error(DioErrorHandler.handle(error));
+      return Left(UnExpectedFailure(message: error.toString()));
     }
   }
 }

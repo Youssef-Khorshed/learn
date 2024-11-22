@@ -76,20 +76,26 @@ dependencies:
   # calculate remaining distance between two points
   geolocator: 
   google_maps_flutter: 
+  # 
   flutter_hooks:
   http:
+  logger:
   location:
   flutter_riverpod:
   get:
   equatable:
   flutter_polyline_points:
   material_floating_search_bar_2: 
+  dartz:
+  connectivity_plus: ^6.1.0
 dev_dependencies:
+  #A build system for Dart code generation and modular compilation
+  build_runner:
+  bloc_test:   
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.8.0  # Make sure this is the latest version.  
-
-
+  mockito:
+  mocktail:  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

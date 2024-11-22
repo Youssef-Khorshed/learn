@@ -1,24 +1,21 @@
-import 'package:flutter_complete_project/Core/Error/exceptionType.dart';
+class InternetConnectionException implements Exception {}
 
-sealed class AppException {
+class ServerException implements Exception {
   final String message;
-  final int? code;
-
-  const AppException({required this.message, this.code});
+  ServerException({required this.message});
 }
 
-class NetworkException extends AppException {
-  final NetworkExceptionType type;
-  const NetworkException({
-    required this.type,
-    super.message = 'Network Error',
-    super.code,
-  });
+class LocalException implements Exception {
+  final String message;
+  LocalException({required this.message});
 }
 
-class CacheException extends AppException {
-  const CacheException({
-    super.message = 'Cache Error',
-    super.code,
-  });
+class UnExpectedException implements Exception {
+  final String message;
+  UnExpectedException({required this.message});
+}
+
+class NoInternetException implements Exception {
+  final String message;
+  NoInternetException({required this.message});
 }
