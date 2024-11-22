@@ -88,6 +88,7 @@ dependencies:
   equatable:
   material_floating_search_bar_2: 
   dartz:
+  connectivity_plus: ^6.1.0
 dev_dependencies:
   #A build system for Dart code generation and modular compilation
   build_runner:

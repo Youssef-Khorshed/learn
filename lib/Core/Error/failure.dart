@@ -17,7 +17,13 @@ class LocalFailure extends Failure {
   LocalFailure({required String message}) : super(message: message);
 }
 
-/// connec Error
-class Connection extends Failure {
-  Connection({required String message}) : super(message: message);
+/// connection Error
+class InternetConnectionFailure extends Failure {
+  InternetConnectionFailure({required String message})
+      : super(message: message);
+}
+
+/// Unexpected Error
+class UnExpectedFailure extends Failure {
+  UnExpectedFailure({required String message}) : super(message: message);
 }

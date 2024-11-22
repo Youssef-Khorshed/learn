@@ -85,6 +85,18 @@ class WeatherResponse extends Equatable {
     );
   }
 
+  WeatherEntity tooEntity() {
+    return WeatherEntity(
+      cityName: name,
+      main: weather[0].main,
+      description: weather[0].description,
+      icon: weather[0].icon,
+      temp: main.temp,
+      pressure: main.pressure,
+      humidity: main.humidity,
+    );
+  }
+
   @override
   List<Object?> get props => [
         coord,
@@ -101,12 +113,6 @@ class WeatherResponse extends Equatable {
         name,
         cod,
       ];
-
-  // // Convert to Weather Entity
-  // WeatherEntity toEntity(Map<String, dynamic> json) {
-  //   final response = WeatherResponse.fromJson(json);
-  //   return WeatherEntity(weather: response.weather, main: response.main);
-  // }
 }
 
 class Coord extends Equatable {
