@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class StringManager {
 // Google Maps
   static String apiKey = 'AIzaSyD0wUQ43jOKDFyyh7ILEE7HzImVAOjVKYA';
+
   static String placeLocationAutoCompleteUrl({
     required String searchQuery,
     String country = 'eg',

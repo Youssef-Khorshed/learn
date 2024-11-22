@@ -34,7 +34,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-
   # State management
   flutter_bloc: 
   # Code generator (mainly used with cubit & retrofit)
@@ -43,9 +42,8 @@ dependencies:
   # for dependency injection
   get_it: 
   # Automatically generate code for converting to and from JSON by annotating Dart classes
-  json_serializable: 
-  json_annotation: 
-  # Networking
+  json_annotation: ^4.9.0 
+  build_runner: ^2.4.13 # This is needed to run code generation.
   dio: 
   retrofit: 
   retrofit_generator: 
@@ -86,6 +84,7 @@ dependencies:
   flutter_riverpod:
   get:
   equatable:
+  flutter_polyline_points:
   material_floating_search_bar_2: 
   dartz:
   connectivity_plus: ^6.1.0
@@ -97,6 +96,7 @@ dev_dependencies:
     sdk: flutter
   mockito:
   mocktail:  
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

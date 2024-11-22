@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_complete_project/Core/Error/exception.dart';
 import 'package:flutter_complete_project/Core/Error/failure.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/DataSource/mapremote.dart';
-import 'package:flutter_complete_project/Features/Maps/Data/Model/DestinationModel.dart';
+import 'package:flutter_complete_project/Features/Maps/Data/Model/destination_model.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/PlaceDetails.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/autoCompleteModel.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -45,6 +45,7 @@ class MapsRepoimplementation {
       return Right(res);
     } on ServerException catch (error) {
       return Left(ServerFailure(message: error.toString()));
+
     } catch (error) {
       return Left(UnExpectedFailure(message: error.toString()));
     }
