@@ -6,36 +6,11 @@ import 'package:flutter_complete_project/Features/Maps/Data/DataSource/mapremote
 import 'package:flutter_complete_project/Features/Maps/Data/RepoImplementation/mapRepoImplementation.dart';
 import 'package:flutter_complete_project/Features/Maps/Presentation/Logic/cubit/maps/maps_cubit.dart';
 import 'package:flutter_complete_project/Features/Maps/Presentation/UI/widgets/googlemaps.dart';
+import 'package:flutter_complete_project/Features/Maps2/googlemaps2.dart';
 
 class AppRoutes {
   static Route generateroute(RouteSettings settings) {
     switch (settings.name) {
-      // case Routes.onBoarding:
-      //   return MaterialPageRoute(builder: (context) => const Onboarding());
-      // case Routes.login:
-      //   return MaterialPageRoute(
-      //       builder: (context) => BlocProvider(
-      //             create: (context) => getit<LoginCubit>(),
-      //             child: const Loginscreen(),
-      //           ));
-      // case Routes.register:
-      //   return MaterialPageRoute(
-      //       builder: (context) => BlocProvider(
-      //             create: (context) => getit<RegisterCubit>(),
-      //             child: const Signupscrenn(),
-      //           ));
-      // case Routes.home:
-      //   return MaterialPageRoute(
-      //       builder: (context) => BlocProvider(
-      //             create: (context) => getit<HomeBloc>(),
-      //             child: const Homescreen(),
-      //           ));
-      // case Routes.map:
-      //   return MaterialPageRoute(
-      //       builder: (context) => BlocProvider(
-      //             create: (context) => getit<HomeBloc>(),
-      //             child: McDonaldsLocator(),
-      //           ));
       case Routes.map:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
@@ -44,6 +19,10 @@ class AppRoutes {
                           MapRemoteDataSourceImplementation(dio: Dio()))),
                   child: const MyMaps(),
                 ));
+
+      case Routes.map2:
+        return MaterialPageRoute(builder: (context) => const Googlemaps2());
+
       default:
         return MaterialPageRoute(
             builder: (context) => const Text('data not found'));

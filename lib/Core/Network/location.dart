@@ -1,37 +1,48 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_complete_project/Core/Error/exception.dart';
 import 'package:location/location.dart';
 
 class LocationService {
   Location location = Location();
-  Future<bool> checkAndrequestLocationService() async {
-    debugPrint("service Performed");
+
+  Future<void> checkAndrequestLocationService() async {
     final bool _isServiceEnabled = !await location.serviceEnabled();
     if (!_isServiceEnabled) {
-      final _isServiceEnabledAfterRequest = await location.requestService();
-      return _isServiceEnabledAfterRequest;
+      await location.requestService()
+          ? throw ServiceException(message: "Service not enabled")
+          : null;
     }
-    return true;
   }
 
-  Future<bool> checkAndrequestLocationPermission() async {
+  Future<void> checkAndrequestLocationPermission() async {
     final _hasPermission = await location.hasPermission();
     if (_hasPermission == PermissionStatus.deniedForever) {
-      return false;
+      throw PermissionException(message: "Permission not denied forever");
     }
     if (_hasPermission == PermissionStatus.denied) {
       final _hasPermissionAfterRequest = await location.requestPermission();
-      debugPrint("Permission Performed");
 
-      return _hasPermissionAfterRequest == PermissionStatus.granted;
+      if (_hasPermissionAfterRequest != PermissionStatus.granted) {
+        debugPrint("service denied");
+
+        throw PermissionException(message: "Permission not granted");
+      }
     }
-    debugPrint("Permission passed");
-
-    return true;
+    debugPrint("service Performed");
   }
 
-  void updateCameraLocation(void Function(LocationData)? onDatachange) {
-    // location.changeSettings(distanceFilter: 2);
+  Future<void> updateCameraLocation(
+      void Function(LocationData)? onDatachange) async {
+    await checkAndrequestLocationService();
+    await checkAndrequestLocationPermission();
+    location.changeSettings(distanceFilter: 2);
     location.onLocationChanged.listen(onDatachange);
-    debugPrint("updateCameraLocation Performed");
+  }
+
+  Future<LocationData> getuserLocation() async {
+    await checkAndrequestLocationService();
+    await checkAndrequestLocationPermission();
+    print('getuserLocation');
+    return location.getLocation();
   }
 }
