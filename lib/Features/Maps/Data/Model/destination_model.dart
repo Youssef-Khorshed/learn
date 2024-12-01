@@ -1,20 +1,28 @@
-import 'package:json_annotation/json_annotation.dart';
-part 'destination_model.g.dart';
-
-@JsonSerializable()
 class DestinationResponse {
   List<Routes>? routes;
   String? status;
 
   DestinationResponse({this.routes, this.status});
 
-  factory DestinationResponse.fromJson(Map<String, dynamic> json) =>
-      _$DestinationResponseFromJson(json);
+  // Manually written fromJson method
+  factory DestinationResponse.fromJson(Map<String, dynamic> json) {
+    return DestinationResponse(
+      routes: (json['routes'] as List?)
+          ?.map((item) => Routes.fromJson(item))
+          .toList(),
+      status: json['status'] as String?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$DestinationResponseToJson(this);
+  // Manually written toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'routes': routes?.map((item) => item.toJson()).toList(),
+      'status': status,
+    };
+  }
 }
 
-@JsonSerializable()
 class Routes {
   Bounds? bounds;
   List<Legs>? legs;
@@ -28,37 +36,80 @@ class Routes {
     this.summary,
   });
 
-  factory Routes.fromJson(Map<String, dynamic> json) => _$RoutesFromJson(json);
+  // Manually written fromJson method
+  factory Routes.fromJson(Map<String, dynamic> json) {
+    return Routes(
+      bounds: json['bounds'] != null ? Bounds.fromJson(json['bounds']) : null,
+      legs:
+          (json['legs'] as List?)?.map((item) => Legs.fromJson(item)).toList(),
+      overviewPolyline: json['overview_polyline'] != null
+          ? DistancePolylinePoints.fromJson(json['overview_polyline'])
+          : null,
+      summary: json['summary'] as String?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$RoutesToJson(this);
+  // Manually written toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'bounds': bounds?.toJson(),
+      'legs': legs?.map((item) => item.toJson()).toList(),
+      'overview_polyline': overviewPolyline?.toJson(),
+      'summary': summary,
+    };
+  }
 }
 
-@JsonSerializable()
 class Bounds {
   Northeast? northeast;
   Northeast? southwest;
 
   Bounds({this.northeast, this.southwest});
 
-  factory Bounds.fromJson(Map<String, dynamic> json) => _$BoundsFromJson(json);
+  // Manually written fromJson method
+  factory Bounds.fromJson(Map<String, dynamic> json) {
+    return Bounds(
+      northeast: json['northeast'] != null
+          ? Northeast.fromJson(json['northeast'])
+          : null,
+      southwest: json['southwest'] != null
+          ? Northeast.fromJson(json['southwest'])
+          : null,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$BoundsToJson(this);
+  // Manually written toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'northeast': northeast?.toJson(),
+      'southwest': southwest?.toJson(),
+    };
+  }
 }
 
-@JsonSerializable()
 class Northeast {
   double? lat;
   double? lng;
 
   Northeast({this.lat, this.lng});
 
-  factory Northeast.fromJson(Map<String, dynamic> json) =>
-      _$NortheastFromJson(json);
+  // Manually written fromJson method
+  factory Northeast.fromJson(Map<String, dynamic> json) {
+    return Northeast(
+      lat: json['lat'] as double?,
+      lng: json['lng'] as double?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$NortheastToJson(this);
+  // Manually written toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'lat': lat,
+      'lng': lng,
+    };
+  }
 }
 
-@JsonSerializable()
 class Legs {
   Distance? distance;
   Distance? duration;
@@ -78,25 +129,64 @@ class Legs {
     this.steps,
   });
 
-  factory Legs.fromJson(Map<String, dynamic> json) => _$LegsFromJson(json);
+  // Manually written fromJson method
+  factory Legs.fromJson(Map<String, dynamic> json) {
+    return Legs(
+      distance:
+          json['distance'] != null ? Distance.fromJson(json['distance']) : null,
+      duration:
+          json['duration'] != null ? Distance.fromJson(json['duration']) : null,
+      endAddress: json['end_address'] as String?,
+      endLocation: json['end_location'] != null
+          ? Northeast.fromJson(json['end_location'])
+          : null,
+      startAddress: json['start_address'] as String?,
+      startLocation: json['start_location'] != null
+          ? Northeast.fromJson(json['start_location'])
+          : null,
+      steps: (json['steps'] as List?)
+          ?.map((item) => Steps.fromJson(item))
+          .toList(),
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$LegsToJson(this);
+  // Manually written toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'distance': distance?.toJson(),
+      'duration': duration?.toJson(),
+      'end_address': endAddress,
+      'end_location': endLocation?.toJson(),
+      'start_address': startAddress,
+      'start_location': startLocation?.toJson(),
+      'steps': steps?.map((item) => item.toJson()).toList(),
+    };
+  }
 }
 
-@JsonSerializable()
 class Distance {
   String? text;
   int? value;
 
   Distance({this.text, this.value});
 
-  factory Distance.fromJson(Map<String, dynamic> json) =>
-      _$DistanceFromJson(json);
+  // Manually written fromJson method
+  factory Distance.fromJson(Map<String, dynamic> json) {
+    return Distance(
+      text: json['text'] as String?,
+      value: json['value'] as int?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$DistanceToJson(this);
+  // Manually written toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'text': text,
+      'value': value,
+    };
+  }
 }
 
-@JsonSerializable()
 class Steps {
   Distance? distance;
   Distance? duration;
@@ -107,29 +197,70 @@ class Steps {
   String? travelMode;
   String? maneuver;
 
-  Steps(
-      {this.distance,
-      this.duration,
-      this.endLocation,
-      this.htmlInstructions,
-      this.polyline,
-      this.startLocation,
-      this.travelMode,
-      this.maneuver});
+  Steps({
+    this.distance,
+    this.duration,
+    this.endLocation,
+    this.htmlInstructions,
+    this.polyline,
+    this.startLocation,
+    this.travelMode,
+    this.maneuver,
+  });
 
-  factory Steps.fromJson(Map<String, dynamic> json) => _$StepsFromJson(json);
+  // Manually written fromJson method
+  factory Steps.fromJson(Map<String, dynamic> json) {
+    return Steps(
+      distance:
+          json['distance'] != null ? Distance.fromJson(json['distance']) : null,
+      duration:
+          json['duration'] != null ? Distance.fromJson(json['duration']) : null,
+      endLocation: json['end_location'] != null
+          ? Northeast.fromJson(json['end_location'])
+          : null,
+      htmlInstructions: json['html_instructions'] as String?,
+      polyline: json['polyline'] != null
+          ? DistancePolylinePoints.fromJson(json['polyline'])
+          : null,
+      startLocation: json['start_location'] != null
+          ? Northeast.fromJson(json['start_location'])
+          : null,
+      travelMode: json['travel_mode'] as String?,
+      maneuver: json['maneuver'] as String?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$StepsToJson(this);
+  // Manually written toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'distance': distance?.toJson(),
+      'duration': duration?.toJson(),
+      'end_location': endLocation?.toJson(),
+      'html_instructions': htmlInstructions,
+      'polyline': polyline?.toJson(),
+      'start_location': startLocation?.toJson(),
+      'travel_mode': travelMode,
+      'maneuver': maneuver,
+    };
+  }
 }
 
-@JsonSerializable()
 class DistancePolylinePoints {
   String? points;
 
   DistancePolylinePoints({this.points});
 
-  factory DistancePolylinePoints.fromJson(Map<String, dynamic> json) =>
-      _$DistancePolylinePointsFromJson(json);
+  // Manually written fromJson method
+  factory DistancePolylinePoints.fromJson(Map<String, dynamic> json) {
+    return DistancePolylinePoints(
+      points: json['points'] as String?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$DistancePolylinePointsToJson(this);
+  // Manually written toJson method
+  Map<String, dynamic> toJson() {
+    return {
+      'points': points,
+    };
+  }
 }
