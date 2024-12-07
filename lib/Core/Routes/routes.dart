@@ -5,4 +5,5 @@ class Routes {
   static const String home = '/home';
   static const String map = '/map';
   static const String map2 = '/map2';
+  static const String sliver = '/sliver';
 }

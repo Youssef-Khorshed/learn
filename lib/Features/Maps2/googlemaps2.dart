@@ -11,47 +11,71 @@ class Googlemaps2 extends StatefulWidget {
 }
 
 class _Googlemaps2State extends State<Googlemaps2> {
-  late LocationService _locationService;
+  late LocationService locationService;
   late GoogleMapController googleMapController;
   late CameraPosition initialCameraPosition;
+  Set<Marker> markers = {};
   @override
   void initState() {
-    initailization();
+    initialization();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
+      zoomControlsEnabled: false,
+      markers: markers,
       onMapCreated: (controller) {
-        googleMapController = controller;
-        updateUserLoation();
+        setState(() {
+          googleMapController = controller;
+          updateUserLoation();
+        });
       },
       initialCameraPosition: initialCameraPosition,
     );
   }
 
-  initailization() {
+  void initialization() {
     initialCameraPosition = const CameraPosition(target: LatLng(0, 0), zoom: 0);
-    _locationService = LocationService();
+    locationService = LocationService();
+  }
+
+  void addmarkers({required LatLng position}) {
+    setState(() {
+      markers.add(
+        Marker(
+          markerId: const MarkerId('1'),
+          position: position,
+          icon: BitmapDescriptor.defaultMarker,
+        ),
+      );
+    });
   }
 
   void updateUserLoation() async {
     try {
-      final locationData = await _locationService.getuserLocation();
+      final locationData = await locationService.getuserLocation();
+      addmarkers(
+          position: LatLng(locationData.latitude!, locationData.longitude!));
       googleMapController.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
             target: LatLng(locationData.latitude!, locationData.longitude!),
             zoom: 17),
       ));
     } on ServiceException catch (e) {
-      print('aaffafffafa');
-      // ScaffoldMessenger.of(context)
-      //     .showSnackBar(SnackBar(content: Text(e.message)));
+      // Handle service exception
+      print('Location service error: ${e.toString()}');
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Location service error: ${e.message}')),
+      // );
     } on PermissionException catch (e) {
-      print('kgl;kg;lsfkl;k;lk');
-      // ScaffoldMessenger.of(context)
-      //     .showSnackBar(SnackBar(content: Text(e.message)));
+      // Handle permission exception
+      print('Permission error: ${e.toString()}');
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Permission error: ${e.message}')),
+      // );
     }
   }
 }

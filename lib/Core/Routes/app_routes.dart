@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_complete_project/Core/Routes/routes.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_complete_project/Features/Maps/Data/RepoImplementation/m
 import 'package:flutter_complete_project/Features/Maps/Presentation/Logic/cubit/maps/maps_cubit.dart';
 import 'package:flutter_complete_project/Features/Maps/Presentation/UI/widgets/googlemaps.dart';
 import 'package:flutter_complete_project/Features/Maps2/googlemaps2.dart';
+import 'package:flutter_complete_project/Features/Sliver/presentation/sliver.dart';
 
 class AppRoutes {
   static Route generateroute(RouteSettings settings) {
@@ -22,6 +24,9 @@ class AppRoutes {
 
       case Routes.map2:
         return MaterialPageRoute(builder: (context) => const Googlemaps2());
+
+      case Routes.sliver:
+        return CupertinoPageRoute(builder: (context) => const SliverExample());
 
       default:
         return MaterialPageRoute(

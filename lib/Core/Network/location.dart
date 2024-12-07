@@ -8,9 +8,10 @@ class LocationService {
   Future<void> checkAndrequestLocationService() async {
     final bool _isServiceEnabled = !await location.serviceEnabled();
     if (!_isServiceEnabled) {
-      await location.requestService()
-          ? throw ServiceException(message: "Service not enabled")
-          : null;
+      final isServiceEnabled = await location.requestService();
+      if (!isServiceEnabled) {
+        throw ServiceException(message: "Service not enabled");
+      }
     }
   }
 
@@ -42,7 +43,6 @@ class LocationService {
   Future<LocationData> getuserLocation() async {
     await checkAndrequestLocationService();
     await checkAndrequestLocationPermission();
-    print('getuserLocation');
-    return location.getLocation();
+    return await location.getLocation();
   }
 }
