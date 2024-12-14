@@ -14,6 +14,7 @@ class SliverExample extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.black,
         body: Scrollbar(
+          // add scrollbar
           radius: Radius.circular(0),
           child: CustomScrollView(
             slivers: [

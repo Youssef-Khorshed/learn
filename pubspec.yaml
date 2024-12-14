@@ -93,6 +93,7 @@ dev_dependencies:
   bloc_test:   
   flutter_test:
     sdk: flutter
+  json_serializable: any
   mockito:
   mocktail:  
 

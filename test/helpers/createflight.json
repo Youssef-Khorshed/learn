@@ -1,0 +1,209 @@
+{
+    "type": "flight-offer",
+    "id": "1",
+    "source": "GDS",
+    "instantTicketingRequired": false,
+    "nonHomogeneous": false,
+    "oneWay": false,
+    "lastTicketingDate": "2024-12-14",
+    "lastTicketingDateTime": "2024-12-14",
+    "numberOfBookableSeats": 9,
+    "itineraries": [
+        {
+            "duration": "PT2H45M",
+            "segments": [
+                {
+                    "id": "1",
+                    "numberOfStops": 0,
+                    "blacklistedInEU": false,
+                    "carrierCode": "SM",
+                    "number": "469",
+                    "duration": "PT2H45M",
+                    "departure": {
+                        "iataCode": "CAI",
+                        "terminal": "1",
+                        "at": "2024-12-14T17:25:00"
+                    },
+                    "arrival": {
+                        "iataCode": "RUH",
+                        "terminal": "2",
+                        "at": "2024-12-14T21:10:00"
+                    },
+                    "aircraft": {
+                        "code": "320"
+                    },
+                    "operating": {
+                        "carrierCode": "SM"
+                    }
+                }
+            ]
+        },
+        {
+            "duration": "PT3H",
+            "segments": [
+                {
+                    "id": "2",
+                    "numberOfStops": 0,
+                    "blacklistedInEU": false,
+                    "carrierCode": "SM",
+                    "number": "462",
+                    "duration": "PT3H",
+                    "departure": {
+                        "iataCode": "RUH",
+                        "terminal": "2",
+                        "at": "2024-12-31T01:05:00"
+                    },
+                    "arrival": {
+                        "iataCode": "CAI",
+                        "terminal": "1",
+                        "at": "2024-12-31T03:05:00"
+                    },
+                    "aircraft": {
+                        "code": "320"
+                    },
+                    "operating": {
+                        "carrierCode": "SM"
+                    }
+                }
+            ]
+        }
+    ],
+    "price": {
+        "grandTotal": "1640.00",
+        "currency": "SAR",
+        "total": "1640.00",
+        "base": "332.00",
+        "tayarrTaxes": "0",
+        "tayarrFees": "0",
+        "fees": [
+            {
+                "amount": "0.00",
+                "type": "SUPPLIER"
+            },
+            {
+                "amount": "0.00",
+                "type": "TICKETING"
+            }
+        ]
+    },
+    "pricingOptions": {
+        "includedCheckedBagsOnly": false,
+        "fareType": [
+            "PUBLISHED"
+        ],
+        "refundableFare": false,
+        "noRestrictionFare": false,
+        "noPenaltyFare": false
+    },
+    "validatingAirlineCodes": [
+        "SM"
+    ],
+    "travelerPricings": [
+        {
+            "travelerId": "1",
+            "fareOption": "STANDARD",
+            "travelerType": "ADULT",
+            "price": {
+                "currency": "SAR",
+                "total": "669.00",
+                "base": "158.00",
+                "tayarrTaxes": "0",
+                "tayarrFees": "0"
+            },
+            "fareDetailsBySegment": [
+                {
+                    "segmentId": "1",
+                    "cabin": "ECONOMY",
+                    "fareBasis": "OEGRT",
+                    "class": "O",
+                    "isAllotment": false,
+                    "includedCheckedBags": {
+                        "quantity": 0,
+                        "weight": 30,
+                        "weightUnit": "KG"
+                    }
+                },
+                {
+                    "segmentId": "2",
+                    "cabin": "ECONOMY",
+                    "fareBasis": "OEGRT",
+                    "class": "O",
+                    "isAllotment": false,
+                    "includedCheckedBags": {
+                        "quantity": 0,
+                        "weight": 40,
+                        "weightUnit": "KG"
+                    }
+                }
+            ]
+        },
+        {
+            "travelerId": "2",
+            "fareOption": "STANDARD",
+            "travelerType": "CHILD",
+            "price": {
+                "currency": "SAR",
+                "total": "669.00",
+                "base": "158.00",
+                "tayarrTaxes": "0",
+                "tayarrFees": "0"
+            },
+            "fareDetailsBySegment": [
+                {
+                    "segmentId": "1",
+                    "cabin": "ECONOMY",
+                    "fareBasis": "OEGRT",
+                    "class": "O",
+                    "isAllotment": false
+                },
+                {
+                    "segmentId": "2",
+                    "cabin": "ECONOMY",
+                    "fareBasis": "OEGRT",
+                    "class": "O",
+                    "isAllotment": false
+                }
+            ]
+        },
+        {
+            "travelerId": "3",
+            "fareOption": "STANDARD",
+            "travelerType": "HELD_INFANT",
+            "price": {
+                "currency": "SAR",
+                "total": "302.00",
+                "base": "16.00",
+                "tayarrTaxes": "0",
+                "tayarrFees": "0"
+            },
+            "fareDetailsBySegment": [
+                {
+                    "segmentId": "1",
+                    "cabin": "ECONOMY",
+                    "fareBasis": "OEGRT",
+                    "class": "O",
+                    "isAllotment": false
+                },
+                {
+                    "segmentId": "2",
+                    "cabin": "ECONOMY",
+                    "fareBasis": "OEGRT",
+                    "class": "O",
+                    "isAllotment": false
+                }
+            ]
+        }
+    ],
+    "fareRules": {
+        "rules": [
+            {
+                "category": "EXCHANGE",
+                "maxPenaltyAmount": "263.00"
+            },
+            {
+                "category": "REVALIDATION",
+                "notApplicable": true
+            }
+        ]
+    }
+}

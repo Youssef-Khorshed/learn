@@ -1,6 +1,12 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_project/Core/Error/exception.dart';
+import 'package:flutter_complete_project/Core/Network/dio.dart';
+import 'package:flutter_complete_project/Core/Network/internetconnection.dart';
 import 'package:flutter_complete_project/Core/Network/location.dart';
+import 'package:flutter_complete_project/Core/models/getfilghts/getfilghts.dart';
+import 'package:flutter_complete_project/Core/philo/api_service.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Googlemaps2 extends StatefulWidget {
@@ -15,31 +21,35 @@ class _Googlemaps2State extends State<Googlemaps2> {
   late GoogleMapController googleMapController;
   late CameraPosition initialCameraPosition;
   Set<Marker> markers = {};
+  Set<Polyline> polylines = {};
   @override
   void initState() {
-    initialization();
-
+    initialCameraPosition = const CameraPosition(target: LatLng(0, 0), zoom: 0);
+    //   x();
     super.initState();
   }
+
+  // void x() async {
+  //   final x = DioFactory.getDio();
+  //   final res = await x.get(getlink());
+  //   List<dynamic> a = res.data['tayarResult']['data'];
+  //   print(Getfilghts.fromJson(a.first));
+  // }
+
+  // getlink() =>
+  // '';
 
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-      zoomControlsEnabled: false,
+      zoomControlsEnabled: true,
       markers: markers,
       onMapCreated: (controller) {
-        setState(() {
-          googleMapController = controller;
-          updateUserLoation();
-        });
+        googleMapController = controller;
+        updateUserLoation();
       },
       initialCameraPosition: initialCameraPosition,
     );
-  }
-
-  void initialization() {
-    initialCameraPosition = const CameraPosition(target: LatLng(0, 0), zoom: 0);
-    locationService = LocationService();
   }
 
   void addmarkers({required LatLng position}) {
@@ -56,26 +66,28 @@ class _Googlemaps2State extends State<Googlemaps2> {
 
   void updateUserLoation() async {
     try {
+      // Get the user's current location
+      locationService = LocationService();
       final locationData = await locationService.getuserLocation();
+
+      // Update the map camera position to show the user's location
+      final cameraPosition = CameraPosition(
+          target: LatLng(locationData.latitude!, locationData.longitude!),
+          zoom: 20);
+      print(locationData);
       addmarkers(
           position: LatLng(locationData.latitude!, locationData.longitude!));
-      googleMapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(
-            target: LatLng(locationData.latitude!, locationData.longitude!),
-            zoom: 17),
-      ));
+      googleMapController
+          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+      // If the location service is not enabled or the permission is not granted
+      // print an error message
     } on ServiceException catch (e) {
       // Handle service exception
       print('Location service error: ${e.toString()}');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text('Location service error: ${e.message}')),
-      // );
     } on PermissionException catch (e) {
       // Handle permission exception
       print('Permission error: ${e.toString()}');
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text('Permission error: ${e.message}')),
-      // );
     }
   }
 }

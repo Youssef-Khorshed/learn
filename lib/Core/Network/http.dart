@@ -1,11 +1,27 @@
 import 'dart:convert';
+import 'package:flutter_complete_project/Core/Error/exception.dart';
+import 'package:flutter_complete_project/Core/Error/handlemessage.dart';
+import 'package:flutter_complete_project/Core/Network/internetconnection.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 class HttpFactory {
-  HttpFactory._();
+  InternetConnectivity internetConnectivity;
+
+  HttpFactory._({required this.internetConnectivity});
   static http.Client? client;
   static final Logger logger = Logger();
+
+  // Add default headers if needed
+  Map<String, String> defaultHeaders({
+    String? token,
+  }) {
+    return {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      //  'Authorization': 'Bearer your_token', // If you have an authentication token
+    };
+  }
 
   static http.Client getClient() {
     if (client == null) {
@@ -15,105 +31,81 @@ class HttpFactory {
   }
 
   // Function to make GET requests
-  static Future<http.Response> getRequest(
+  Future<http.Response> getRequest(
     String url,
   ) async {
     var client = getClient();
-    try {
-      // Log the request details
-      logger.i('GET Request to: $url');
-      logger.i('Headers: $defaultHeaders');
-
-      // Make the GET request
+    if (await internetConnectivity.isConnected) {
       final response =
           await client.get(Uri.parse(url), headers: defaultHeaders());
-
-      // Log the response
-      logger.i('Response Status: ${response.statusCode}');
-      logger.i('Response Body: ${response.body}');
-      return response;
-    } catch (e) {
-      logger.e('Error during GET request: $e');
-      rethrow;
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw ServerException(
+          message: getErrorMessage(response.statusCode),
+        );
+      }
+    } else {
+      throw NoInternetException(message: 'No internet Connection');
     }
   }
 
   // Function to make POST requests
-  static Future<http.Response> postRequest(String url, {dynamic body}) async {
+  Future<http.Response> postRequest(String url, {dynamic body}) async {
     var client = getClient();
-    try {
-      // Log the request details
-      logger.i('POST Request to: $url');
-      logger.i('Headers: $defaultHeaders');
-      logger.i('Request Body: $body');
-
+    if (await internetConnectivity.isConnected) {
       // Make the POST request
       final response = await client.post(Uri.parse(url),
           headers: defaultHeaders(), body: json.encode(body));
-
-      // Log the response
-      logger.i('Response Status: ${response.statusCode}');
-      logger.i('Response Body: ${response.body}');
-      return response;
-    } catch (e) {
-      logger.e('Error during POST request: $e');
-      rethrow;
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw ServerException(
+          message: getErrorMessage(response.statusCode),
+        );
+      }
+    } else {
+      throw NoInternetException(message: 'No internet Connection');
     }
   }
 
   // Function to make PUT requests
-  static Future<http.Response> putRequest(String url, {dynamic body}) async {
+  Future<http.Response> putRequest(String url, {dynamic body}) async {
     var client = getClient();
-    try {
-      // Log the request details
-      logger.i('PUT Request to: $url');
-      logger.i('Headers: $defaultHeaders');
-      logger.i('Request Body: $body');
-
+    if (await internetConnectivity.isConnected) {
       // Make the PUT request
       final response = await client.put(Uri.parse(url),
           headers: defaultHeaders(), body: json.encode(body));
-
-      // Log the response
-      logger.i('Response Status: ${response.statusCode}');
-      logger.i('Response Body: ${response.body}');
-      return response;
-    } catch (e) {
-      logger.e('Error during PUT request: $e');
-      rethrow;
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw ServerException(
+          message: getErrorMessage(response.statusCode),
+        );
+      }
+    } else {
+      throw NoInternetException(message: 'No internet Connection');
     }
   }
 
   // Function to make DELETE requests
-  static Future<http.Response> deleteRequest(
+  Future<http.Response> deleteRequest(
     String url,
   ) async {
     var client = getClient();
-    try {
-      // Log the request details
-      logger.i('DELETE Request to: $url');
-      logger.i('Headers: $defaultHeaders');
-
-      // Make the DELETE request
+    if (await internetConnectivity.isConnected) {
+      // Make the POST request
       final response =
           await client.delete(Uri.parse(url), headers: defaultHeaders());
-
-      // Log the response
-      logger.i('Response Status: ${response.statusCode}');
-      logger.i('Response Body: ${response.body}');
-      return response;
-    } catch (e) {
-      logger.e('Error during DELETE request: $e');
-      rethrow;
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw ServerException(
+          message: getErrorMessage(response.statusCode),
+        );
+      }
+    } else {
+      throw NoInternetException(message: 'No internet Connection');
     }
-  }
-
-  // Add default headers if needed
-  static Map<String, String> defaultHeaders() {
-    return {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer your_token', // If you have an authentication token
-    };
   }
 }

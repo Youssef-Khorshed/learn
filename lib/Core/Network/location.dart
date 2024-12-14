@@ -43,6 +43,12 @@ class LocationService {
   Future<LocationData> getuserLocation() async {
     await checkAndrequestLocationService();
     await checkAndrequestLocationPermission();
-    return await location.getLocation();
+    try {
+      final x = await location.getLocation();
+      debugPrint('action done $x');
+      return x;
+    } catch (e) {
+      return LocationData.fromMap({'latitude': 0.0, 'longitude': 0.0});
+    }
   }
 }

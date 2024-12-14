@@ -38,7 +38,6 @@ class MapRemoteDataSourceImplementation implements MapRemoteDataSource {
 
     if (res.statusCode == 200 && res.statusCode != null) {
       return PlacedetailsResponse.fromJson(res.data);
-
     }
     throw ServerException(message: getErrorMessage(res.data['code']));
   }

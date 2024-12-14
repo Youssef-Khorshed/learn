@@ -5,14 +5,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
-import 'package:connectivity_plus/connectivity_plus.dart' as _i12;
+import 'package:connectivity_plus/connectivity_plus.dart' as _i10;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:dio/dio.dart' as _i5;
 import 'package:flutter_complete_project/Core/Error/failure.dart' as _i7;
 import 'package:flutter_complete_project/Core/Network/internetconnection.dart'
     as _i9;
 import 'package:flutter_complete_project/Features/TTD/Data/datasource/remote/remoteDatasource.dart'
-    as _i10;
+    as _i11;
 import 'package:flutter_complete_project/Features/TTD/Data/model/weathermodel.dart'
     as _i3;
 import 'package:flutter_complete_project/Features/TTD/Domain/Entity/weatherentity.dart'
@@ -20,7 +20,7 @@ import 'package:flutter_complete_project/Features/TTD/Domain/Entity/weatherentit
 import 'package:flutter_complete_project/Features/TTD/Domain/Repo/repo.dart'
     as _i4;
 import 'package:flutter_complete_project/Features/TTD/Domain/usecase/getwetherusecase.dart'
-    as _i11;
+    as _i12;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -160,13 +160,20 @@ class MockInternetConnectivity extends _i1.Mock
         Invocation.getter(#isConnected),
         returnValue: _i6.Future<bool>.value(false),
       ) as _i6.Future<bool>);
+
+  @override
+  _i6.Stream<List<_i10.ConnectivityResult>> get onConnectivityChanged =>
+      (super.noSuchMethod(
+        Invocation.getter(#onConnectivityChanged),
+        returnValue: _i6.Stream<List<_i10.ConnectivityResult>>.empty(),
+      ) as _i6.Stream<List<_i10.ConnectivityResult>>);
 }
 
 /// A class which mocks [WeatherRemotedatasource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockWeatherRemotedatasource extends _i1.Mock
-    implements _i10.WeatherRemotedatasource {
+    implements _i11.WeatherRemotedatasource {
   MockWeatherRemotedatasource() {
     _i1.throwOnMissingStub(this);
   }
@@ -192,7 +199,7 @@ class MockWeatherRemotedatasource extends _i1.Mock
 /// A class which mocks [Getwetherusecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetwetherusecase extends _i1.Mock implements _i11.Getwetherusecase {
+class MockGetwetherusecase extends _i1.Mock implements _i12.Getwetherusecase {
   MockGetwetherusecase() {
     _i1.throwOnMissingStub(this);
   }
@@ -936,26 +943,26 @@ class MockDioClinet extends _i1.Mock implements _i5.Dio {
 /// A class which mocks [Connectivity].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockConnectivity extends _i1.Mock implements _i12.Connectivity {
+class MockConnectivity extends _i1.Mock implements _i10.Connectivity {
   MockConnectivity() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Stream<List<_i12.ConnectivityResult>> get onConnectivityChanged =>
+  _i6.Stream<List<_i10.ConnectivityResult>> get onConnectivityChanged =>
       (super.noSuchMethod(
         Invocation.getter(#onConnectivityChanged),
-        returnValue: _i6.Stream<List<_i12.ConnectivityResult>>.empty(),
-      ) as _i6.Stream<List<_i12.ConnectivityResult>>);
+        returnValue: _i6.Stream<List<_i10.ConnectivityResult>>.empty(),
+      ) as _i6.Stream<List<_i10.ConnectivityResult>>);
 
   @override
-  _i6.Future<List<_i12.ConnectivityResult>> checkConnectivity() =>
+  _i6.Future<List<_i10.ConnectivityResult>> checkConnectivity() =>
       (super.noSuchMethod(
         Invocation.method(
           #checkConnectivity,
           [],
         ),
-        returnValue: _i6.Future<List<_i12.ConnectivityResult>>.value(
-            <_i12.ConnectivityResult>[]),
-      ) as _i6.Future<List<_i12.ConnectivityResult>>);
+        returnValue: _i6.Future<List<_i10.ConnectivityResult>>.value(
+            <_i10.ConnectivityResult>[]),
+      ) as _i6.Future<List<_i10.ConnectivityResult>>);
 }

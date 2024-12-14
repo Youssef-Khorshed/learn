@@ -45,7 +45,6 @@ class MapsRepoimplementation {
       return Right(res);
     } on ServerException catch (error) {
       return Left(ServerFailure(message: error.toString()));
-
     } catch (error) {
       return Left(UnExpectedFailure(message: error.toString()));
     }
