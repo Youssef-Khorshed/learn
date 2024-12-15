@@ -12,9 +12,7 @@ void main() {
   late MockDioClinet dioClinet;
   late MockInternetConnectivity connectivity;
   late DioFactory factoryer;
-  getlink() =>
-      'https://takeed.runasp.net/api/v1/air/search_and_shopping/get-flight-offers?OriginLocationCode=CAI&DestinationLocationCode=RUH&DepartureDate=12-14-2024&ReturnDate=12-31-2024&Adults=1&Children=1&Infants=1&CurrencyCode=SAR&MaxPrice=10000&Max=1';
-
+  getlink() => '';
   setUp(() {
     connectivity = MockInternetConnectivity();
     dioClinet = MockDioClinet();

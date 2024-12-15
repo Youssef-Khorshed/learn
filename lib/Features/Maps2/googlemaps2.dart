@@ -1,12 +1,7 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_project/Core/Error/exception.dart';
-import 'package:flutter_complete_project/Core/Network/dio.dart';
-import 'package:flutter_complete_project/Core/Network/internetconnection.dart';
 import 'package:flutter_complete_project/Core/Network/location.dart';
-import 'package:flutter_complete_project/Core/models/getfilghts/getfilghts.dart';
-import 'package:flutter_complete_project/Core/philo/api_service.dart';
+import 'package:flutter_complete_project/Features/Maps2/map2apiservices.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Googlemaps2 extends StatefulWidget {
@@ -25,19 +20,14 @@ class _Googlemaps2State extends State<Googlemaps2> {
   @override
   void initState() {
     initialCameraPosition = const CameraPosition(target: LatLng(0, 0), zoom: 0);
-    //   x();
+    x();
     super.initState();
   }
 
-  // void x() async {
-  //   final x = DioFactory.getDio();
-  //   final res = await x.get(getlink());
-  //   List<dynamic> a = res.data['tayarResult']['data'];
-  //   print(Getfilghts.fromJson(a.first));
-  // }
-
-  // getlink() =>
-  // '';
+  void x() async {
+    final x = await MyMapServices.fetchSuggestions('alexnadria-lib');
+    x.fold((l) => print(l.message), (r) => print(r));
+  }
 
   @override
   Widget build(BuildContext context) {

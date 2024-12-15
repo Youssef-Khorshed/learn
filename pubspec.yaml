@@ -86,11 +86,11 @@ dependencies:
   equatable:
   flutter_polyline_points:
   material_floating_search_bar_2: 
-  dartz:
   auto_size_text:
   connectivity_plus: ^6.1.0
 dev_dependencies:
   bloc_test:   
+  dartz: ^0.10.1
   flutter_test:
     sdk: flutter
   json_serializable: any
