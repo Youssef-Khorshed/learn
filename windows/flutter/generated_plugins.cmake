@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   firebase_core
+  flutter_inappwebview_windows
   geolocator_windows
 )
 

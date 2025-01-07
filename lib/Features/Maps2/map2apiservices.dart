@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_complete_project/Core/Error/exception.dart';
-import 'package:flutter_complete_project/Core/Network/dio.dart';
 import 'package:flutter_complete_project/Core/Network/internetconnection.dart';
 import 'package:flutter_complete_project/Features/Maps/Data/Model/autoCompleteModel.dart';
 import 'package:dartz/dartz.dart';

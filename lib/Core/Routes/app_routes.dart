@@ -8,7 +8,7 @@ import 'package:flutter_complete_project/Features/Maps/Data/RepoImplementation/m
 import 'package:flutter_complete_project/Features/Maps/Presentation/Logic/cubit/maps/maps_cubit.dart';
 import 'package:flutter_complete_project/Features/Maps/Presentation/UI/widgets/googlemaps.dart';
 import 'package:flutter_complete_project/Features/Maps2/googlemaps2.dart';
-import 'package:flutter_complete_project/Features/Paymnet/presentation/screens/paymentscreen.dart';
+import 'package:flutter_complete_project/Features/Payment/presentation/views/my_cart_view.dart';
 import 'package:flutter_complete_project/Features/Sliver/presentation/sliver.dart';
 
 class AppRoutes {
@@ -29,8 +29,8 @@ class AppRoutes {
       case Routes.sliver:
         return CupertinoPageRoute(builder: (context) => const SliverExample());
 
-      case Routes.payment:
-        return CupertinoPageRoute(builder: (context) => PaymentScreen());
+      case Routes.cartview:
+        return CupertinoPageRoute(builder: (context) => MyCartView());
 
       default:
         return MaterialPageRoute(

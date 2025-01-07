@@ -1,0 +1,1 @@
+enum LocalizationThemeState { ar, en }

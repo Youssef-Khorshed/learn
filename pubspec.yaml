@@ -89,6 +89,10 @@ dependencies:
   auto_size_text:
   connectivity_plus: ^6.1.0
   flutter_stripe: ^11.3.0
+  flutter_paypal_payment: ^1.0.8
+  font_awesome_flutter: ^10.8.0
+  flutter_credit_card: ^4.0.1
+  flutter_secure_storage: ^4.2.1
 dev_dependencies:
   bloc_test:   
   dartz: ^0.10.1
@@ -120,6 +124,8 @@ flutter:
   assets:
     # - assets/images/
     # - assets/svgs/
+    - assets/images/
+
     - .env
   #   - images/a_dot_ham.jpeg
 
