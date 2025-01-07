@@ -17,10 +17,10 @@ class _Googlemaps2State extends State<Googlemaps2> {
   late CameraPosition initialCameraPosition;
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
+
   @override
   void initState() {
     initialCameraPosition = const CameraPosition(target: LatLng(0, 0), zoom: 0);
-    x();
     super.initState();
   }
 
@@ -31,14 +31,29 @@ class _Googlemaps2State extends State<Googlemaps2> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      zoomControlsEnabled: true,
-      markers: markers,
-      onMapCreated: (controller) {
-        googleMapController = controller;
-        updateUserLoation();
-      },
-      initialCameraPosition: initialCameraPosition,
+    return Stack(
+      children: [
+        GoogleMap(
+          zoomControlsEnabled: true,
+          markers: markers,
+          onMapCreated: (controller) {
+            googleMapController = controller;
+            updateUserLoation();
+          },
+          initialCameraPosition: initialCameraPosition,
+        ),
+        Positioned(
+            top: 30,
+            left: 30,
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  updateUserLoation();
+                });
+              },
+              child: Text('search'),
+            ))
+      ],
     );
   }
 
@@ -59,7 +74,7 @@ class _Googlemaps2State extends State<Googlemaps2> {
       // Get the user's current location
       locationService = LocationService();
       final locationData = await locationService.getuserLocation();
-
+      print('loaction $locationData');
       // Update the map camera position to show the user's location
       final cameraPosition = CameraPosition(
           target: LatLng(locationData.latitude!, locationData.longitude!),

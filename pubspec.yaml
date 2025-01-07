@@ -88,6 +88,7 @@ dependencies:
   material_floating_search_bar_2: 
   auto_size_text:
   connectivity_plus: ^6.1.0
+  flutter_stripe: ^11.3.0
 dev_dependencies:
   bloc_test:   
   dartz: ^0.10.1

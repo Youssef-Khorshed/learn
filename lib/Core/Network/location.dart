@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_complete_project/Core/Error/exception.dart';
 import 'package:location/location.dart';
 
@@ -24,12 +23,9 @@ class LocationService {
       final _hasPermissionAfterRequest = await location.requestPermission();
 
       if (_hasPermissionAfterRequest != PermissionStatus.granted) {
-        debugPrint("service denied");
-
         throw PermissionException(message: "Permission not granted");
       }
     }
-    debugPrint("service Performed");
   }
 
   Future<void> updateCameraLocation(
@@ -43,12 +39,7 @@ class LocationService {
   Future<LocationData> getuserLocation() async {
     await checkAndrequestLocationService();
     await checkAndrequestLocationPermission();
-    try {
-      final x = await location.getLocation();
-      debugPrint('action done $x');
-      return x;
-    } catch (e) {
-      return LocationData.fromMap({'latitude': 0.0, 'longitude': 0.0});
-    }
+    final x = await location.getLocation();
+    return x;
   }
 }

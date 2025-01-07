@@ -18,13 +18,10 @@ class MyMapServices {
       final res = await dioFactory.getRequest("$baseUrl$input");
       List<dynamic> data = res['predictions'];
 
-      // Map data to Predictions objects and return it as a list
       final result = data.map((item) => Predictions.fromJson(item)).toList();
       return Right(result);
     } catch (e) {
-      // Optionally, you can throw an exception or return an empty list
-      return Left(ServerException(
-          message: e.toString())); // or return an empty list if you prefer
+      return Left(ServerException(message: e.toString()));
     }
   }
 }

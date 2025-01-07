@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_project/Features/Sliver/presentation/widgets/custom_cateogriesitems.dart';
 
+// ignore: must_be_immutable
 class CustomSliverheaderdataitems extends StatelessWidget {
   double percent;
   CustomSliverheaderdataitems({super.key, required this.percent});

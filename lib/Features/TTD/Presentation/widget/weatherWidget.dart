@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_complete_project/Features/TTD/Presentation/logic/bloc/weather_bloc.dart';
 
 class Weatherwidget extends StatelessWidget {
   const Weatherwidget({super.key});

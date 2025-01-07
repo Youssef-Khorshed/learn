@@ -30,7 +30,7 @@ class ApiService {
     }
   }
 
-  Options? _addDioHeaders({String? token}) {
+  Options? _addDioHeaders() {
     return Options(headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
