@@ -1,0 +1,210 @@
+The pyramid of OO (Object Oriented):
+1 - OO Paradigm -> way of thinking / viewing / structuring for a software
+  Define oop..?
+  - oop is a paradigm ->  - verycenterlazied around object concept  // class collect data then enforcement 
+                     
+                      - figureout:  object + function + interactions    // when you model a system as oop system    
+                     - before that -> we used procedural paradigm
+
+Why  oop not prodcedural...?
+
+OOP:
+
+oop close correspondence between real-world and oop classes // make it much more sense
+help to handling complexity of software products and make it easier to maintain // specially in lagrge system
+seems one of the best ways to deal with software crisis => complex software //how to avoid (over-buget - overtime - buggy - meet requirements - devlviery time)
+
+
+prodcedural:
+No owner for data    // data can be found everywhere 
+data integrity issue //  - data Duplication 
+                     //  - Missing Data (customer address is missing  in  order) 
+                     //  - Inconsistant Data (string CutomerName= "Jhon" in place and "Mike"in another one) 
+                     //   - outdated data (hard to update it)
+hard debuggin if data corrupted 
+
+
+2 - OO concepts: 
+    - class: 
+              blueprint or template or that describes the state and behavior of objects
+              pattern  or container or of a given type of copies (objects)  
+             
+       
+       What`s class elements...?:      
+       declaration : define class name
+       body : curley brackets (container) 
+       fileds: data members defined 
+       methods: mebmer fucntions perform operations 
+       properities: characteristics assigned by access modifiers 
+       
+       How to do:
+       group all relevant attributes in ONE unit 
+       provided internal operations on these data using methodos
+       bind variables (attributes) & operations (methods)
+       create Object is composed of the Class
+    
+    - object:  tangible (ملموس) entity that represents a specific instance of a given class (attribute)
+            +state : define or describe object in a specific moment as data member
+            +behavoiur : the specific action that can be do object  which make changes  using (method)  
+  
+UML (Unified Modeling Language) : standard visual language used to design and document software systems.     
+ Key features of UML
+   - Standardized notation:  uses a consistent symbols and diagrams to represent different aspects of a system.
+    - Visual representation: visualize complex concepts in a clear and understandable way
+    - Flexibility: adapted to various development methodologies.
+  Types of UML
+  Structural Diagrams
+         - Class diagrams: Show the classes, their attributes, and operations, as well as the relationships between them.
+        - Object diagrams: Represent instances of classes at a particular point in time clarify complicated relationships between objects. // used in deubgging & testing  (customer class - bankaccount class - > name ,balance - id)
+       - Component diagrams:  model the high-level software components and subsystems  // Dependency analysis
+       -Deployment diagrams: Illustrate the physical deployment of a system, including hardware and software components.
+      // ex: "E-commerce Application" artifact is deployed on the "Web Server," which communicates with the "Application Server" and "Database Server."
+     // Physical deployment planning across different hardware components
+    // Scalability analysis can be scaled to handle increased load.
+   // Maintenance and troubleshooting: resolving deployment-related issues.
+     -Package diagrams: Group related elements into packages to improve organization and reusability. // Features     
+  
+Behavioral Diagrams: 
+-> representation of how the system will function over time
+      - Use Case Diagrams: Model the interactions between users and the system. // Customer - >Create Account, Login, Browse Products, Add to Cart, Checkout
+                                                                                                                                                         // Admin ->  Manage products - Orders
+      - Sequence Diagram:  Show the sequence of interactions between objects over time // Customer creates an account.                       
+                                                                                                                                                                        // ustomer sends CreateAccount request, AccountManager creates account, AccountManager sends confirmation to Customer.
+     - Activity Diagrams : Model the flow of activities in a system   // Checkout process.  Select Payment Method, Enter Payment Details, Verify Payment, Confirm Order.
+                                                                                                                           // Customer Places Order : select prodcuct - count - payment - deliver - arrvied
+   - State Machine Diagram:  Represent the different states an object can be in and the transitions between them   // order Created, Processing, Shipped, Delivered
+
+Relationships in UML :  can be categorized into two main groups: association and generalization.
+Association : a structural relationship between two or more classes  // One-to-Many  ex: 1...* , One-to-One  1...1,2  , Many-to-Many *....*
+                           -  Aggregation : A special type of association where one class is composed of other classes   // car - > wheels
+                           - Composition: : A stronger form of aggregation where the parts cannot exist independently of the whole // person -> hurt
+Generalization: "is-a" relationship between classes   // one class is a more specific version of another class
+                               - Inheritance : subclass inherits attributes and methods from its superclass
+                              - Dependency:  one element is dependent on another for its existence or functionality // Parameter passing , Method calls
+                              - Realization: one element implements or fulfills the contract of another element  // interface - Abastract class   ->  class
+                             
+
+- Encapculation: group all the data members & member functions within one single unit //  setter & getter  ex:employee class
+    Different Bet~ Data Hiding vs Encapculation...?
+      Encapulation: group members (data & fucntion) in one unit // to make software managable & reduce complexity & easier to control (setter - getter) & develop
+      Data Hiding:  hiding data/functions from outsidecode using (Access Modifiers) // what`s only interests the results
+                    reduce outsiders dependency (coupling) to whole data/functions // reduce (hide) comlexity & object state changes   ex:Google search engine
+      Define Accessors  & Metuters..?
+      Accessors : is a function used to read / access  data member
+      Mutators: is a function used to change/mutate data mebmer
+      "Don`t ask for the information you need to do the work , ask the object for the inforamtion that has to do the work"  // provide more functoins than use set & get
+
+   -   Access Modifiers.....?    
+   Public :  members can be accessed from anywhere,
+   Private: members can only be accessed within the same class
+   Protected:  members can be accessed within the same class, its subclasses, and other classes in the same package.
+   
+
+- Inheritance:   represents an "is-a" relationship between classes (sub class - superclass)
+                             // purpose: code reuseability  - Avoid code redundancy
+       what is "is-a" relationship (inheritance)..?  
+        One class is a more specific version of another class.         circle - rectangle - triangle  -> Shape   
+         what is "has-a" relationship (Composition)..?    
+       It indicates that an instance of one class can contain of instances of another class.
+      Baseclass(Genereal): A general class that can be used as a parent class. 
+      Superclass: The parent class of a subclass. provides the attributes and methods that can be inherited
+      Subclass: is a class that copy attributes and methods from another class.
+      Inheritance Abuse:
+              Overgeneralization: Creating overly broad superclasses that don't accurately capture the commonalities between subclasses.
+             Undergeneralization: Failing to identify commonalities between subclasses that could be captured in a superclass.
+            Tight Coupling:  Overusing inheritance can create tight coupling between classes, making the code less flexible and harder to maintain
+           Diamond Problem -> Multiple inheritance -> When a class inherits from two or more superclasses that have a common ancestor, it can lead to ambiguity in resolving inherited methods or attributes.
+    Types of Inheritance in Object-Oriented Programming
+      1. Single Inheritance:
+                   Definition: A subclass inherits from only one superclass.
+                  Example: A Dog class can inherit from an Animal class.
+    2. Multiple Inheritance:
+                  Definition: A subclass inherits from multiple superclasses.  // java doesn`t support case of aumbiguty , complexity  -> interfaces as a replacement
+                  Example: A HybridCar class can inherit from both ElectricCar and GasolineCar classes.
+                 Note: Not all programming languages support multiple inheritance directly. Some languages use techniques like interfaces or mixins to achieve similar functionality.     
+   3. Multilevel Inheritance:
+               Definition: A subclass inherits from another subclass, which itself inherits from a superclass. 
+              Example: A GoldenRetriever class can inherit from Dog, which inherits from Animal.
+   4. Hierarchical Inheritance:
+             Definition: Multiple subclasses inherit from a common superclass, forming a hierarchy.
+             Example: Cat, Dog, and Bird can all inherit from Animal.
+   5. Hybrid Inheritance: 
+           Definition: A combination of multiple inheritance and hierarchical inheritance.
+          Example: A HybridCar class can inherit from both ElectricCar and GasolineCar, which both inherit from Vehicle.
+
+
+     - Abstrctaction:  is about hide (more) unwanted details  & showing most essential in a context     // hide as possible you can implementation (How) and data & show (What) user will use & context indentify what`s needed and what`s not
+        What is context ->  specific environment or circumstances under which a piece of code is executed   //  influenced by factor (variables - state - scope - calling ) ex: employee ( Google - Toyota )
+        Global variables: The values of global variables can affect the behavior of code throughout a program.
+        Function arguments: The values of arguments passed to a function can influence its output.        
+       Object state: The state of an object (e.g., its attributes) can determine how its methods behave.
+      Environment variables: The values of environment variables can affect the behavior of programs.
+     Calling context: The function or method from which a piece of code is called can determine its behavior.              
+  =>  Concrete Class, Interface, and Abstract Class...?
+          Concrete class :
+                          Can be instantiated to create objects.
+                         Contains concrete implementations of all methods.
+                          doesn`t have virtual methods
+                         Can be used directly in code.
+          abstractclass :
+                         Cannot be instantiated directly.
+                        Can contain both abstract and concrete methods.
+                       Subclasses must provide concrete implementations for all inherited abstract methods.
+                       useed mostly in multi level inheritance
+         interface:
+                         Cannot be instantiated directly.
+                        contains both methods declaration.
+                       Classes that implement an interface must provide concrete implementations for all of its methods.
+                       doesn`t have a constrctor & satify complete abstraction
+   
+       - Polymerphism:  allows objects/methods of different types to be treated as if they were of the same type (have many forms same type)
+                                        purpose ->  Allow us to write generic code  without knowing exact children    // ex:   void process(Shape shape)  -> can be circle - Rectangel - Triangle
+      - RunTime vs CompileTime.....?
+        CompileTime : where the source code converts to excutable code  (binary code)   // syntax error
+        RunTime: Where the excutable code starts running // logic error  divide by zero
+// overloading - ovverride - pure func - virtual func  -static - const  - friend func -  deep copy - shallow copy - copy by reference - copy by value - constructor
+  
+3 - OO Principles
+ a->SOLID 
+    - Single Responsibility: A class should have only one reason to change, meaning it should have only one responsibility.
+    - Open/Closed: Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+    - Liskov Substitution:   Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program
+    - Interface Sergreation:  Clients should not be forced to depend on interfaces they do not use .     ex printer / scanner (abstract)   -> devices  <- Client
+    - Dependency Inversion:     High-level modules should not depend on low-level modules. Both should depend on abstractions.  ex" Notification  -> message service (abstract class) <- Email Notification
+b-> DRY (don`t repeat yourself) // ensure code doesn`t duplicated in everywhere
+c-> Kiss (keep it simple, stupied) // simplify code as much you can (readble)
+d-> YANGI (you ain`t gonna need it)  // don`t add methods you don`t need it now  
+4 - Design Pattern: best practice for some repetivie design to solve subtasks
+    Creational: 5
+    (Factory - Abstract Factory - Singleton - Builder)
+    Structural: 7
+    (Facade - Proxy)
+    Behavioural: 10
+    (Chain of Responsiblity - State - Command)
+Creational Design Patterns:
+Singleton: Ensures a class has only one instance and provides global access to it.
+Factory Method: Defines an interface for object creation, letting subclasses decide which class to instantiate.
+Abstract Factory: Creates families of related objects without specifying their concrete classes.
+Builder: Constructs complex objects step-by-step with optional parts or configurations.
+Prototype: Creates new objects by cloning an existing object (prototype).
+2. Structural Design Patterns:
+Adapter: Converts one interface to another to make incompatible interfaces compatible.
+Decorator: Dynamically adds behavior or features to an object.
+Facade: Simplifies complex subsystems by providing a unified interface.
+Composite: Treats individual objects and composites of objects uniformly, used for hierarchical structures.
+Proxy: Provides a placeholder for another object, often used for lazy loading or access control.
+3. Behavioral Design Patterns:
+Observer: Defines a one-to-many dependency where the subject notifies its observers of state changes.
+Strategy: Enables selecting an algorithm or behavior at runtime, allowing interchangeable strategies.
+Command: Encapsulates a request as an object, enabling undo/redo functionality and deferred execution.
+State: Allows an object to change its behavior when its internal state changes.
+Chain of Responsibility: Passes a request along a chain of handlers, letting multiple handlers process it.
+
+OOA: analysis phase to meet customer requirements
+    output-> analysis models (usecase - UML -  conceptual model - techonolgyindependent)
+OOD: desing the software considering (hardware- software) used & availability - scalabiliy - budget
+OOP: implementation & testing using oop language
+
+(Cluture - Scale  of project - Team Size) -> three factors decide how to applied
+Small project: system can be done in a unified way by a small team
+Large project: business analysist & system analysist & architect & tech lead & dev

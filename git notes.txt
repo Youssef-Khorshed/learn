@@ -1,0 +1,135 @@
+git: 
+1 - distributed version contorl
+2- free and open source
+3- installed on local machine 
+4- tracks changes made to a file
+
+github:
+1- a pay-user online service build to run git in the cloud
+2- used for hosting git repositories
+3- provides a web interface to view file chagnes
+
+
+Cloud:
+"The cloud" refers to servers that are accessed over the Internet,
+global network of servers, each with a unique function
+
+Repository:
+a central storage location for managing and tracking changes in files and directories.
+
+Branch:
+a lightweight movable pointer to one of these commits
+
+The way in which I solve a problem or add a new feature   (add button - solve bug)
+ 
+Commits:
+a snapshot(checkpoint)  of your repository (local repo) at a specific point in time
+
+Local Repo: 
+refers to your files on pc
+
+Remtoe Repo: 
+refers to your server (github - bitbacket - gitlab)
+
+Clone:
+copy from local to remote
+pc -> server
+pc -> pc (another location) for testing features (pure php - laravel)
+
+Push:
+upload local changes to remote
+
+Pull:
+get changes from remote to local 
+
+Pull request:
+tell other about your changes to pull it from local to remote (admin check request)
+
+
+Origin: is just a name for a remote repository.
+origin/master: (or origin/main) is a local reference to the remote master (or main) branch.   
+master (or main): is your local working branch.
+
+
+Git clone: is used to initialize a new local repository from a remote one.
+
+git init: is a command used to initialize a new Git repository in a specific directory
+What it does:
+Creates a hidden .git directory inside the specified directory.
+This directory stores all the metadata and objects that Git uses to manage your project's history.
+Initializes an initial branch (usually named main or master) to start tracking changes.
+
+Git remote add [origin]: is used to connect an existing local repository to a remote one.
+Git remote -v : To verify the existing remote and its URL
+git remote set-url origin : to change url of origin
+
+
+Clean & Restore
+git restore --staged [filename] *  == git reset head [filename] *   -> removing from add  (!)
+git reset --soft head(~1) or add key from log   removing from commit 
+git reset --hard head(~1) or add key from log  removing from commit and removing files (!)
+note: after reset add git push origin master --force to update your repo
+
+git clean -n -> show last created files before removing
+git clean -f -> apply removing unwanted files
+
+
+
+Two ways to connect your project:
+git clone [link.git]  or (git init then git remote add (set) origin [link.git])
+
+
+to create a new  redme file:
+echo "# git24" >> README.md
+git add README.md
+
+
+git log -5 --oneline: to show last commits
+
+git pull origin [remote]: pull all changes
+
+git config -l: show all configurations
+git config --global user.[(ex: email , username )] "name"
+
+
+
+Stach -> like a hidden box where we add files that we dont want to upload it
+git stash (save "comment")
+git stash show (stash@{index}) -> if we want to see what files inside stash 
+git stash list
+git stash pop (stash@{index})  -> get out files and remove like stack or use index
+git stash apply -> get out files and not remove stash from list
+git stash drop (stash@{index}) -> remove files & stash
+git stash clear -> drop all stash items
+task : How to make branch from stash...?
+
+
+Branch -> for doing specific task 
+git branch (name) -> for creating new branch
+git checkout -b (name) -> for creating new branch & go to it
+git checkout (name) -> go to branch
+git checkout -d (name) -> for deleting branch that has no changes
+git checkout -D (name) -> force deleting branch until it has changes
+git merge (name) -> merge your branch and the name you give
+git merge --abort -> undo conflict between branches
+
+Tag -> static pointer to mark a part of your project 
+                              a specific commit in a Git repository in a specific perioud of time like versions
+       are internal markers for specific code states.
+
+Release -> a prepared,packaged, documented version of software ready for distribution to users.
+            based on a specific tag,but:   notes describing changes
+                                           Downloadable binaries or source code
+                                           Other relevant assets
+ 
+git tag  ->show list of tages
+git tag (name ex:"v1.0")  -> add a tag
+git push origin (tagname) -> push a tag
+git push origin --delete (tagname) -> delete a tag
+
+
+.gitignore  file -> you can add name of files or dir  that you want to hide
+(name) for hide
+!(name)for show
+
+ 
