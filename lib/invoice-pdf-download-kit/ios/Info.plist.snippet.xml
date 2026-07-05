@@ -1,0 +1,7 @@
+<!-- Add inside ios/Runner/Info.plist <dict> -->
+<!-- Enables saved PDFs in Files app: On My iPhone → [App] → Downloads -->
+
+<key>UIFileSharingEnabled</key>
+<true/>
+<key>LSSupportsOpeningDocumentsInPlace</key>
+<true/>

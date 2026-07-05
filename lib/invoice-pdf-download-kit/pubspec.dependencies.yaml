@@ -1,0 +1,11 @@
+# Add these to your pubspec.yaml dependencies:
+dependencies:
+  dio:
+  dartz:
+  path_provider:
+  file_picker: ^10.3.8
+  open_file: ^3.5.11
+  fluttertoast:
+  easy_localization:   # optional — only if using download_helper toasts
+  flutter:
+    sdk: flutter
